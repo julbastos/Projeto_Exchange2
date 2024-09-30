@@ -14,13 +14,13 @@ A simulação de uma Exchange de criptomoedas permite aos usuários realizar log
 
 O repositório foi divido nas seguintes partes:
 
-- Código_Completo: contém a última versão do código, completo e revisado.
+- '[#Código_Completo]': contém a última versão do código, completo e revisado.
 
-- Parte um: contém as estruturas de armazenamento de dados dos clientes e implementação das funções efetuar_login, menu_completo, consultar_saldo e saída. Código desenvolvido por Júlia Barreto.
+- '[#Parte-um-do-projeto]': contém as estruturas de armazenamento de dados dos clientes e implementação das funções efetuar_login, menu_completo, consultar_saldo e saída. Código desenvolvido por Júlia Barreto.
 
-- Parte dois: contém as estruturas de armazenamento de dados da carteira e implementação das funções salvar_saldos, carregar_saldos, salvar_dados, ler_dados, extrato, depositar, sacar. Código desenvolvido por Elizabeth Kruger.
+- '[#Parte-dois-do-projeto]': contém as estruturas de armazenamento de dados da carteira e implementação das funções salvar_saldos, carregar_saldos, salvar_dados, ler_dados, extrato, depositar, sacar. Código desenvolvido por Elizabeth Kruger.
 
-- Parte três: contém a estrutura de armazenamento das cotações, ajustes na CLI e a implementação das funções comprar_criptomoedas, vender criptomoedas, atualizar_cotacao e encerrar_programa. Código desenvolvido por Ana Lima.
+- '[#Parte-três-do-projeto.c]': contém a estrutura de armazenamento das cotações, ajustes na CLI e a implementação das funções comprar_criptomoedas, vender criptomoedas, atualizar_cotacao e encerrar_programa. Código desenvolvido por Ana Lima.
 
 ## Integrantes:
 - Ana Beatriz Sousa Lima (R.A: 22.124.085-6)
