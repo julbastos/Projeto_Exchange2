@@ -2,61 +2,150 @@
 #include <stdlib.h>
 #include <string.h>
 
-char cpfs[4][12] = {
+// Função para limpar o buffer
+void clear_buffer() {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+// Dados do administrador
+const char cpf_gerente[] = "51616468882";
+const char senha_gerente[] = "admin1";
+
+// Dados dos investidores
+char cpfs[10][12] = {
     "12345678910",
-    "11111111111",
-    "22222222222",
-    "33333333333"
+    "22124085611",
+    "52124009312",
+    "22124071613"
 };
 
-char senhas[4][7] = {
+char senhas[10][7] = {
     "123456",
     "234567",
     "345678",
     "456789"
 };
 
-char nomes[4][20] = {
+char nomes[10][20] = {
     "Analiza Julia",
-    "Ana",
-    "Liza",
-    "Julia"
+    "Ana Lima",
+    "Elizabeth Kruger",
+    "Julia Barreto"
 };
 
-float reais[4] = {0.00, 0.00, 0.00, 0.00};
-float bitcoin[4] = {0.00, 0.00, 0.00, 0.00};
-float ethereum[4] = {0.00, 0.00, 0.00, 0.00};
-float ripple[4] = {0.00, 0.00, 0.00, 0.00};
+// Saldos dos investidores
+float reais[10] = {0.00, 0.00, 0.00, 0.00};
+float bitcoin[10] = {0.00, 0.00, 0.00, 0.00};
+float ethereum[10] = {0.00, 0.00, 0.00, 0.00};
+float ripple[10] = {0.00, 0.00, 0.00, 0.00};
+int total_investidores = 4;
 
-void consultar_saldo(int cliente) {
-    char senha_acesso_saldo[7]; // 6 dígitos + 1 para o caractere nulo
 
+void cadastrar_investidor();
+void excluir_investidor();
+void menu_gerente();
+void efetuar_login();
+void menu_completo(int cliente);
+void consultar_saldo(int cliente);
+
+// Cadastrar novos investidores
+void cadastrar_investidor() {
+    if (total_investidores >= 10) {
+        printf("Não é possível cadastrar novos investidores.\n");
+        return;
+    }
+
+    printf("Digite o CPF do novo investidor: ");
+    scanf("%s", cpfs[total_investidores]);
+    printf("Digite a senha do novo investidor: ");
+    scanf("%s", senhas[total_investidores]);
+    printf("Digite o nome do novo investidor: ");
+    scanf(" %[^\n]%*c", nomes[total_investidores]);
+
+    reais[total_investidores] = 0.0;
+    bitcoin[total_investidores] = 0.0;
+    ethereum[total_investidores] = 0.0;
+    ripple[total_investidores] = 0.0;
+
+    total_investidores++;
+    printf("Investidor cadastrado.\n");
+}
+
+// Excluir investidores
+void excluir_investidor() {
+    char cpf_excluir[12];
+    printf("Digite o CPF do investidor a ser deletado: ");
+    scanf("%s", cpf_excluir);
+
+    int encontrado = -1;
+    for (int i = 0; i < total_investidores; i++) {
+        if (strcmp(cpfs[i], cpf_excluir) == 0) {
+            encontrado = i;
+            break;
+        }
+    }
+
+    if (encontrado == -1) {
+        printf("O Investidor não existe.\n");
+        return;
+    }
+
+    for (int i = encontrado; i < total_investidores - 1; i++) {
+        strcpy(cpfs[i], cpfs[i + 1]);
+        strcpy(senhas[i], senhas[i + 1]);
+        strcpy(nomes[i], nomes[i + 1]);
+        reais[i] = reais[i + 1];
+        bitcoin[i] = bitcoin[i + 1];
+        ethereum[i] = ethereum[i + 1];
+        ripple[i] = ripple[i + 1];
+    }
+
+    total_investidores--;
+    printf("Investidor excluído.\n");
+}
+
+// Menu do gerente
+void menu_gerente() {
+    int opcao;
     while (1) {
         printf("==----------------------------==\n");
-        printf("Digite sua senha: ");
-        scanf("%s", senha_acesso_saldo);
-        if (strcmp(senhas[cliente], senha_acesso_saldo) == 0) {
-            printf("==----------------------------==\n");
-            printf("Nome: %s\n", nomes[cliente]);
-            printf("CPF: %c%c%c.%c%c%c.%c%c%c-%c%c\n", // Formatação do CPF
-                cpfs[cliente][0], cpfs[cliente][1], cpfs[cliente][2],
-                cpfs[cliente][3], cpfs[cliente][4], cpfs[cliente][5],
-                cpfs[cliente][6], cpfs[cliente][7], cpfs[cliente][8],
-                cpfs[cliente][9], cpfs[cliente][10]);
-            printf("\nReais (R$): %.2f\n", reais[cliente]);
-            printf("Bitcoin (BTC): %.6f\n", bitcoin[cliente]);
-            printf("Ethereum (ETH): %.6f\n", ethereum[cliente]);
-            printf("Ripple (XRP): %.6f\n", ripple[cliente]);
-            return;
-        } else {
-            printf("Senha incorreta. Digite novamente.\n");
+        printf("Menu: \n");
+        printf("1. Cadastrar novo investidor\n");
+        printf("2. Excluir investidor\n");
+        printf("3. Sair\n");
+        printf("Escolha uma opção: ");
+        scanf("%d", &opcao);
+
+        switch (opcao) {
+            case 1:
+                cadastrar_investidor();
+                break;
+            case 2:
+                excluir_investidor();
+                break;
+            case 3:
+                 printf("==----------------------------==\n");
+                return; // Retorna 
+            default:
+                printf("Opção inválida.\n");
         }
     }
 }
 
-void menu_completo(int cliente) {
-    int opcao_menu;
 
+//Consultar saldo do investidor
+void consultar_saldo(int cliente) {
+    printf("Saldo do investidor %s:\n", nomes[cliente]);
+    printf("Reais: %.2f\n", reais[cliente]);
+    printf("Bitcoin: %.2f\n", bitcoin[cliente]);
+    printf("Ethereum: %.2f\n", ethereum[cliente]);
+    printf("Ripple: %.2f\n", ripple[cliente]);
+}
+
+// Menu investidor
+void menu_completo(int cliente) {
+    int opcao;
     while (1) {
         printf("==----------------------------==\n");
         printf("Menu: \n");
@@ -70,89 +159,80 @@ void menu_completo(int cliente) {
         printf("8. Sair\n");
         printf("==----------------------------==\n");
         printf("Escolha sua opção: ");
-        scanf("%d", &opcao_menu);
+        scanf("%d", &opcao);
 
-        switch (opcao_menu) {
+        switch (opcao) {
             case 1:
                 consultar_saldo(cliente);
                 break;
             case 2:
-                // A ser implementada
+                printf("Funcionalidade de extrato a ser implementada.\n");
                 break;
             case 3:
-        // A ser implementada                
-        break;
+                printf("Funcionalidade de depósito a ser implementada.\n");
+                break;
             case 4:
-                // A ser implementada
+                printf("Funcionalidade de saque a ser implementada.\n");
                 break;
             case 5:
-                // A ser implementada
+                printf("Funcionalidade de compra de criptomoedas a ser implementada.\n");
                 break;
             case 6:
-                // A ser implementada
+                printf("Funcionalidade de venda de criptomoedas a ser implementada.\n");
                 break;
             case 7:
-                // A ser implementada
+                printf("Funcionalidade de atualização de cotação a ser implementada.\n");
                 break;
             case 8:
                 return;
             default:
                 printf("Opção inválida. Tente novamente.\n");
-                break;
         }
     }
 }
 
-void encerrar_programa() { 
-    printf("==--------------------------------------------------==\n");
-    printf("Encerrando o Programa. Obrigado por trabalhar conosco!\n");
-    printf("==--------------------------------------------------==\n");
-    exit(0); 
-}
-
+// Função de login
 void efetuar_login() {
-    char cpf_login[12];  // 11 dígitos + 1 para o caractere nulo
-    char senha_login[7]; // 6 dígitos + 1 para o caractere nulo
-    int opcao_login;
+    char cpf_login[12];
+    char senha_login[7];
 
-    while (1) {
-        printf("==--------------------------------------==\n");
-        printf("Seja bem-vindo à Exchange de Criptomoedas!\n");
-        printf("1 - Efetuar Login\n");
-        printf("2 - Sair\n");
-        printf("==--------------------------------------==\n");
-        printf("Por favor, selecione a opção desejada: ");
-        scanf("%d", &opcao_login);
+    printf("Digite seu CPF: ");
+    scanf("%s", cpf_login);
+    printf("Digite sua senha: ");
+    scanf("%s", senha_login);
 
-        if (opcao_login == 2){
-            encerrar_programa(); // Saída
-        } else if (opcao_login != 1){
-            printf("Opção irreconhecível. Tente novamente.\n");
-        } else {
-            printf("Digite seu CPF (Somente números): ");
-            scanf("%s", cpf_login);
+    // Verifica se o login é do administrador
+    if (strcmp(cpf_login, cpf_gerente) == 0 && strcmp(senha_login, senha_gerente) == 0) {
+        printf("Acesso concedido ao menu de gerenciamento.\n");
+        menu_gerente();
+        return;
+    }
 
-            printf("Digite sua senha (Somente números): ");
-            scanf("%s", senha_login);
-
-            for (int i = 0; i < 4; i++) {
-                if (strcmp(cpfs[i], cpf_login) == 0 && strcmp(senhas[i], senha_login) == 0) {
-                    printf("==--------------------------------------==\n");
-                    printf("É bom te ter de volta, %s :)\n", nomes[i]);
-                    menu_completo(i);
-                    return; 
-                }
-            } 
-            printf("CPF ou senha inválidos. Tente novamente.\n");
+    // Verifica login para investidores existentes
+    for (int i = 0; i < total_investidores; i++) {
+        if (strcmp(cpfs[i], cpf_login) == 0 && strcmp(senhas[i], senha_login) == 0) {
+            printf("Bem-vindo, %s!\n", nomes[i]);
+            menu_completo(i);
+            return;
         }
     }
+
+    printf("CPF ou senha inválidos.\n");
 }
 
+
+// Função principal
 int main() {
-
-    while (1) {
+    while (1) { 
         efetuar_login();
+        // Realizar um novo login ou encerrar
+        int opcao;
+        printf("Deseja fazer um novo login? (1. Sim / 2. Não): ");
+        scanf("%d", &opcao);
+        if (opcao == 2) {
+            printf("Encerrando o programa. Obrigado!\n");
+            break; // Encerra o loop
+        }
     }
-
     return 0;
 }
