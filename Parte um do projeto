@@ -230,7 +230,7 @@ int main() {
         printf("Deseja fazer um novo login? (1. Sim / 2. Não): ");
         scanf("%d", &opcao);
         if (opcao == 2) {
-            printf("Encerrando o programa. Obrigado!\n");
+            printf("==----------------------------==\n");
             break; // Encerra o loop
         }
     }
