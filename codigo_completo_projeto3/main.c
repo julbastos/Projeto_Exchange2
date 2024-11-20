@@ -1,4 +1,3 @@
-
 #include "admin.h"      // Incluindo o cabeçalho do admin
 #include "investidor.h" // Incluindo o cabeçalho do investidor
 #include <stdio.h>
