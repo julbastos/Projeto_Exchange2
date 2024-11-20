@@ -1,6 +1,6 @@
 # Exchange de Criptomoedas
 
-Este repositório simula um programa que efetua transações dentro de uma exchange de criptomoedas, como um projeto da disciplina Desenvolvimento de Algoritmos(CCP230) no Centro Universitário FEI.
+Este repositório é um fork do primeiro projeto que simula um programa que efetua transações dentro de uma exchange de criptomoedas, como o projeto 3 da disciplina Desenvolvimento de Algoritmos(CCP230) no Centro Universitário FEI.
 
 ## Forma de Compilação e Execução
 
@@ -8,19 +8,17 @@ O código foi desenvolvido na linguagem C, e pode ser compilado e executado em q
 
 ## Resumo
 
-A simulação de uma Exchange de criptomoedas permite aos usuários realizar login com seus respectivos dados pré-cadastrados, além de operações como consulta de saldo e extratos, depósitos, saques, compras e vendas das criptomoedas. Adicionalmente, optamos por configurar uma interface de linha de comando (CLI) simples, para melhorar a legibilidade das interações.
+A simulação de uma Exchange de criptomoedas permite cadastrar usuários através do menu de administrador, e realizar operações como consulta de saldo e extratos, depósitos, saques, compras e vendas das criptomoedas através do menu de investidor. Adicionalmente, optamos por configurar uma interface de linha de comando (CLI) simples, para melhorar a legibilidade das interações.
 
 ### Partes do projeto
 
-O repositório foi divido nas seguintes partes:
+Esse repositório utiliza 3 arquivos com código em c, e 2 headers para ligá-los, localizados no diretório codigo_completo_projeto3.
 
-- Código_Completo: contém a última versão do código, completo e revisado.
+- Admin.c: é usado como código base do administrador.
 
-- Parte um: contém as estruturas de armazenamento de dados dos clientes e implementação das funções efetuar_login, menu_completo, consultar_saldo e saída. Código desenvolvido por Júlia Barreto.
+- Investidor.c: mostra um menu para os clientes.
 
-- Parte dois: contém as estruturas de armazenamento de dados da carteira e implementação das funções salvar_saldos, carregar_saldos, salvar_dados, ler_dados, extrato, depositar, sacar. Código desenvolvido por Elizabeth Kruger.
-
-- Parte três: contém a estrutura de armazenamento das cotações, ajustes na CLI e a implementação das funções comprar_criptomoedas, vender criptomoedas, atualizar_cotacao e encerrar_programa. Código desenvolvido por Ana Lima.
+- Main.c: os dois códigos são unidos através das headers neste código. 
 
 ## Integrantes:
 - Ana Beatriz Sousa Lima (R.A: 22.124.085-6)
